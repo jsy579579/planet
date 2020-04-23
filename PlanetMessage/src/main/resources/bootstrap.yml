@@ -1,0 +1,60 @@
+server:
+  tomcat: 
+    max-threads: 1000
+  port: 0
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8777/eureka/
+  instance:
+    prefer-ip-address: true
+mysql:
+  dataBaseName: test
+---
+spring: 
+  profiles: dev
+  application: 
+    name: planetMessage
+  rabbitmq: # see the RabbitProperties class file in amqp package of spring-boot-autoconfig.jar
+    host: xxxxx  # RabbitMQ host.
+    port: 5672 # RabbitMQ port.
+    username: xxxx  # Login user to authenticate to the broker.
+    password: xxxx  # Login to authenticate against the broker.
+    #virtualHost: test   # Virtual host to use when connecting to the broker.
+    requestedHeartbeat: 30  # Requested heartbeat timeout, in seconds; zero for none.
+    publisherConfirms: true  # Enable publisher confirms.
+    publisherReturns: true  # Enable publisher returns.
+    connectionTimeout: 5000 # Connection timeout, in milliseconds; zero for infinite.
+    template:
+      mandatory: true  # Enable mandatory messages. If a mandatory message cannot be routed to a queue
+    listener:
+      direct:
+        acknowledge-mode: manual
+      simple:
+        acknowledge-mode: manual
+    retry:
+      enabled: true  # Whether or not publishing retries are enabled.
+      maxAttempts: 2  # Maximum number of attempts to publish or deliver a message
+  cloud: 
+    config: 
+      label: dev
+      name: eureka,mysql,${spring.application.name}
+      uri: http://localhost:8099/
+logging: 
+    level:
+      ROOT: INFO
+      org.springframework.web: INFO
+---
+spring: 
+  profiles: prod
+  application: 
+    name: planetMessage
+  cloud: 
+    config: 
+      label: baiyete
+      name: eureka,mysql,${spring.application.name}
+      uri: http://localhost:8099/
+logging: 
+    level:
+      ROOT: INFO
+      org.springframework.web: INFO

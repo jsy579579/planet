@@ -1,0 +1,53 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8777/eureka/
+  instance:
+    prefer-ip-address: true
+
+logging: 
+    level:
+        tk.mybatis: ERROR
+        com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver: WARN
+
+multipart.maxFileSize: 100Mb  
+multipart.maxRequestSize: 100Mb 
+
+---
+server:
+  #服务器如需使用80端口可改动任意端口通过反向代理访问
+  port: 80
+  tomcat:
+    max-threads: 2000
+spring: 
+  profiles: dev
+  application: 
+    name: gateway
+  jpa:
+    show-sql: false
+  cloud: 
+    config: 
+      label: ysj_test
+      name: eureka,${spring.application.name}
+      uri: http://localhost:8099/
+
+---
+server:
+  #服务器如需使用80端口可改动任意端口通过反向代理访问
+  port: 80
+  tomcat:
+    max-threads: 2000
+spring: 
+  profiles: prod
+  application: 
+    name: gateway
+  jpa:
+    show-sql: false
+  cloud: 
+    config: 
+      label: ysj_test
+      name: eureka,${spring.application.name}
+      uri: http://worklaw.com.cn:8099/

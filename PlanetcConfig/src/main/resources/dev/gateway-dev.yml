@@ -1,0 +1,45 @@
+info:
+  component: Zuul Server
+
+#hystrix:
+#  threadpool:
+#    default:
+#      coreSize: 300
+#      maxQueueSize: 200
+#      queueSizeRejectionThreshold: 150
+#  command:
+#    default:
+#      circuitBreaker:
+#        requestVolumeThreshold: 50
+#      execution:
+#        timeout:
+#          enabled: true
+#        isolation:
+#          strategy: THREAD
+#          semaphore:
+#            maxConcurrentRequests: 1000
+#          thread:
+#            timeoutInMilliseconds: 15000
+
+ribbon:
+  ConnectTimeout: 15000
+  ReadTimeout: 15000
+#  MaxAutoRetriesNextServer: 3
+
+zuul:
+  host:  
+    socket-timeout-millis: 15000  
+    connect-timeout-millis: 15000  
+  ignoredServices: "*"
+  routes:
+    paymentgateway: 
+      path: /ysj/bizTest/**
+      stripPrefix: false
+      serviceId: bizTest
+  
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.web: INFO
+ 
+spring.resources.static-locations: classpath:/static/

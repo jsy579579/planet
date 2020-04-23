@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: eureka
+#  cloud:
+#    config:
+#      label: test
+#      name: eureka,${spring.application.name}
+#      uri: http://localhost:8099/
+  main:
+    allow-bean-definition-overriding: true
+log4j:
+  logger:
+    freemarker:
+      cache: ERROR
+      beans: ERROR
+server:
+  port: 8777
+
+logging:
+  level:
+    com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver: WARN
+    com.netflix: warn
+
+eureka:
+  server:
+    responseCacheUpdateIntervalMs: 3000
+    responseCacheAutoExpirationInSeconds: 180
+    eviction-interval-timer-in-ms: 10000
+    #evictionIntervalTimerInMs: 4000
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+    ip-address: ${spring.cloud.client.ip-address}
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://localhost:8777/eureka/ #如需要部署多节点则不能使用localhost
+    registry-fetch-interval-seconds: 30

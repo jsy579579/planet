@@ -1,0 +1,30 @@
+server: 
+  port: 8099
+logging:
+  level:
+    com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver: WARN
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8777/eureka/
+---
+spring: 
+  profiles: dev
+  application: 
+    name: config-server
+  cloud: 
+    config:
+      server: 
+        native:
+          search-locations: classpath:/dev/
+
+---
+spring: 
+  profiles: prod
+  application: 
+    name: config-server
+  cloud: 
+    config:
+      server: 
+        native:
+          search-locations: classpath:/prod/

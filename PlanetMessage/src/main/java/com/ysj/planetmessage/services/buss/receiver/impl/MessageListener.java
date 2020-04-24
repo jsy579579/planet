@@ -33,7 +33,7 @@ public class MessageListener {
 
     private final Logger logger = LoggerFactory.getLogger(MessageListener.class);
 
-    //消费业务消费者业务监听队列器
+    //
     @RabbitListener(queues = "topic.consumeQuene")
     public void onReceiveQueue1Message(Payload payload, Channel channel, Message message) {
         try {
@@ -48,7 +48,7 @@ public class MessageListener {
         }
     }
 
-    //还款业务消费者业务监听队列器
+    //
     @RabbitListener(queues = "topic.repaymentQuene")
     public void onReceiveQueue2Message(Payload payload, Channel channel, Message message) {
         try {

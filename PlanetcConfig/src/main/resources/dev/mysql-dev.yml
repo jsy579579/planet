@@ -1,7 +1,7 @@
 spring:
     datasource:
-        url: xxx
-        username: xx
+        url: jdbc:mysql://xxxx
+        username: xxx
         password: xxx
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver

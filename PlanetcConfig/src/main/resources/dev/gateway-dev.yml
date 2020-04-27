@@ -36,6 +36,10 @@ zuul:
       path: /ysj/planetMessage/**
       stripPrefix: false
       serviceId: planetMessage
+    planetBiz1:
+      path: /ysj/planetBiz1/**
+      stripPrefix: false
+      serviceId: planetBiz1
   
 logging:
   level:

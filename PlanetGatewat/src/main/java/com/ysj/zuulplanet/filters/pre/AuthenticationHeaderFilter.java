@@ -34,23 +34,23 @@ public class AuthenticationHeaderFilter extends ZuulFilter {
 	@Override
 	public Object run() {
 		log.info("AuthenticationHeaderFilter过滤器进入");
-//		RequestContext ctx = RequestContext.getCurrentContext();
-//		HttpServletRequest request = ctx.getRequest();
-//		//尝试获取请求头中的token
-//		String token = request.getHeader("token");
-//		//如果token参数值为空则进入此逻辑
-//		if (!StringUtils.isNotEmpty(token)) {
-//			//对该请求禁止路由，也就是禁止访问下游服务
-//			ctx.setSendZuulResponse(false);
-//			//设定responseBody供PostFilter使用
-//			ctx.setResponseBody("{\"status\":500,\"message\":\"token参数为空！\"}");
-//			//logic-is-success保存于上下文，作为同类型下游Filter的执行开关
-//			ctx.set("logic-is-success", false);
-//			//到这里此Filter逻辑结束
-//			return null;
-//		}
-//		//设置避免报空
-//		ctx.set("logic-is-success", true);
+		RequestContext ctx = RequestContext.getCurrentContext();
+		HttpServletRequest request = ctx.getRequest();
+		//尝试获取请求头中的token
+		String token = request.getHeader("token");
+		//如果token参数值为空则进入此逻辑
+		if (!StringUtils.isNotEmpty(token)) {
+			//对该请求禁止路由，也就是禁止访问下游服务
+			ctx.setSendZuulResponse(false);
+			//设定responseBody供PostFilter使用
+			ctx.setResponseBody("{\"status\":500,\"message\":\"token参数为空！\"}");
+			//logic-is-success保存于上下文，作为同类型下游Filter的执行开关
+			ctx.set("logic-is-success", false);
+			//到这里此Filter逻辑结束
+			return null;
+		}
+		//设置避免报空
+		ctx.set("logic-is-success", true);
 		return null;
 	}
 }

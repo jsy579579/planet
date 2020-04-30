@@ -32,14 +32,10 @@ zuul:
     connect-timeout-millis: 15000  
   ignoredServices: "*"
   routes:
-    planetMessage:
-      path: /ysj/planetMessage/**
+    paymentgateway: 
+      path: /ysj/bizTest/**
       stripPrefix: false
-      serviceId: planetMessage
-    planetBiz1:
-      path: /ysj/planetBiz1/**
-      stripPrefix: false
-      serviceId: planetBiz1
+      serviceId: bizTest
   
 logging:
   level:
